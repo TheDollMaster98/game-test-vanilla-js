@@ -31,7 +31,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   function handleKeyPress(event) {
     switch (event.key) {
-      case "w" || " ":
+      case " ":
+        if (!isJumping) {
+          isJumping = true;
+          jumpSpeed = -10; // Impulso iniziale verso l'alto
+          requestAnimationFrame(jump);
+        }
+        break;
+      case "w":
         if (!isJumping) {
           isJumping = true;
           jumpSpeed = -10; // Impulso iniziale verso l'alto
@@ -47,7 +54,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
       case "d":
         positionX = Math.min(canvas.width - 50, positionX + step);
         break;
-      case " ":
     }
     draw();
   }
