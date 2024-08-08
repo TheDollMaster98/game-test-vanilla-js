@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   // Variabili per la posizione del quadrato:
   let positionX = canvas.width / 2 - 25;
   let positionY = canvas.height - 50;
-  const step = 10; // Passo di movimento
+  const step = 20; // Passo di movimento
   let isJumping = false;
   let jumpSpeed = 0;
   const gravity = 0.5; // Forza di gravità
@@ -31,8 +31,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   function handleKeyPress(event) {
     switch (event.key) {
-      case "w":
-        positionY = Math.max(0, positionY - step);
+      case "w" || " ":
+        if (!isJumping) {
+          isJumping = true;
+          jumpSpeed = -10; // Impulso iniziale verso l'alto
+          requestAnimationFrame(jump);
+        }
         break;
       case "s":
         positionY = Math.min(canvas.height - 50, positionY + step);
@@ -44,12 +48,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         positionX = Math.min(canvas.width - 50, positionX + step);
         break;
       case " ":
-        if (!isJumping) {
-          isJumping = true;
-          jumpSpeed = -10; // Impulso iniziale verso l'alto
-          requestAnimationFrame(jump);
-        }
-        break;
     }
     draw();
   }
